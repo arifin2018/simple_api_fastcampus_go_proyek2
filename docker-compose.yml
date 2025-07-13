@@ -1,0 +1,8 @@
+services:
+  database:
+    image: mysql:9.0
+    restart: on-failure:3
+    volumes:
+      - ./docker/mysql:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: example
