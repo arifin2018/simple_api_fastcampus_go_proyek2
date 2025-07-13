@@ -2,7 +2,10 @@ services:
   database:
     image: mysql:9.0
     restart: on-failure:3
+    ports:
+      - 3306:3306
     volumes:
       - ./docker/mysql:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: example
+      MYSQL_DATABASE: fastcampus
