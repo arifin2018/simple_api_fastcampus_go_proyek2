@@ -36,8 +36,6 @@ func main() {
 	}
 
 	cfg := configs.Get()
-	fmt.Println("cfg.Service")
-	fmt.Println(cfg)
 
 	dataDBsourcename := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s", cfg.Database.Username, cfg.Database.Password, cfg.Database.Host, cfg.Database.Port, cfg.Database.DB)
 	db, err := internalsql.Connect(cfg.Database.Drivername, dataDBsourcename)
