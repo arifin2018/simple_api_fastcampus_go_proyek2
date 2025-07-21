@@ -1,0 +1,1 @@
+alter table posts drop foreign key fk_user_id_posts;

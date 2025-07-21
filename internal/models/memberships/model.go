@@ -1,6 +1,6 @@
 package memberships
 
-import "time"
+import "database/sql"
 
 type SignUpRequest struct {
 	Email    string `json:"email"`
@@ -8,13 +8,21 @@ type SignUpRequest struct {
 	Password string `json:"password"`
 }
 
+type LoginRequest struct {
+	Email    string `json:"email"`
+	Password string `json:"password"`
+}
+
+type LoginResponse struct {
+	AccessToken string `json:"accessToken"`
+}
 type UserModel struct {
-	ID         int        `db:"id"`
-	Email      string     `db:"email"`
-	Password   string     `db:"password"`
-	Created_at *time.Time `db:"created_at"`
-	Updated_at *time.Time `db:"updated_at"`
-	Created_by string     `db:"created_by"`
-	Updated_by string     `db:"updated_by"`
-	Username   string     `db:"username"`
+	ID         int          `db:"id"`
+	Email      *string      `db:"email"`
+	Password   string       `db:"password"`
+	Username   *string      `db:"username"`
+	Created_at sql.NullTime `db:"created_at"`
+	Updated_at sql.NullTime `db:"updated_at"`
+	Created_by *string      `db:"created_by"`
+	Updated_by *string      `db:"updated_by"`
 }

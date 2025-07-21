@@ -2,6 +2,7 @@ package memberships
 
 import (
 	"context"
+	"database/sql"
 	"errors"
 	"time"
 
@@ -11,6 +12,7 @@ import (
 
 func (s *service) SignUp(ctx context.Context, req memberships.SignUpRequest) error {
 	user, err := s.membershipRepository.GetUser(ctx, req.Email, req.Username)
+
 	if err != nil {
 		return err
 	}
@@ -21,15 +23,17 @@ func (s *service) SignUp(ctx context.Context, req memberships.SignUpRequest) err
 	if err != nil {
 		return err
 	}
+
+	// return errors.New("username or email already exist")
 	now := time.Now()
 	model := memberships.UserModel{
-		Email:      req.Email,
+		Email:      &req.Email,
 		Password:   string(pass),
-		Created_at: &now,
-		Updated_at: &now,
-		Created_by: req.Username,
-		Updated_by: req.Username,
-		Username:   req.Username,
+		Created_at: sql.NullTime{Time: now, Valid: true},
+		Updated_at: sql.NullTime{Time: now, Valid: true},
+		Created_by: &req.Username,
+		Updated_by: &req.Username,
+		Username:   &req.Username,
 	}
 	if err := s.membershipRepository.CreateUser(ctx, &model); err != nil {
 		return err

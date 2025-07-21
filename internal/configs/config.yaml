@@ -1,5 +1,7 @@
 service:
   port: ":1234"
+  secretJWt: "fastcampusJWT"
+
 database:
   drivername: "mysql"
   host: "localhost"

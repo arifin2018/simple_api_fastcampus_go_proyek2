@@ -3,6 +3,7 @@ package memberships
 import (
 	"context"
 
+	"github.com/arifin2018/simple_api_fastcampus_go_proyek2/internal/configs"
 	"github.com/arifin2018/simple_api_fastcampus_go_proyek2/internal/models/memberships"
 )
 
@@ -12,11 +13,13 @@ type membershipRepository interface {
 }
 
 type service struct {
+	cfg                  *configs.Config
 	membershipRepository membershipRepository
 }
 
-func NewService(membershipRepository membershipRepository) *service {
+func NewService(cfg *configs.Config, membershipRepository membershipRepository) *service {
 	return &service{
+		cfg:                  cfg,
 		membershipRepository: membershipRepository,
 	}
 }
