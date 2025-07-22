@@ -2,7 +2,6 @@ package jwt
 
 import (
 	"errors"
-	"fmt"
 	"time"
 
 	"github.com/golang-jwt/jwt/v5"
@@ -37,11 +36,6 @@ func ValidationToken(tokenStr, secretKey string) (int64, string, error) {
 
 	if !token.Valid {
 		return 0, "", errors.New("invalid token")
-	}
-
-	fmt.Printf("%+v\n", claims)
-	for k, v := range claims {
-		fmt.Printf("%s: %v\n", k, v)
 	}
 
 	return int64(claims["Id"].(float64)), claims["Username"].(string), nil
