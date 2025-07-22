@@ -19,7 +19,7 @@ type LoginResponse struct {
 type UserModel struct {
 	ID         int          `db:"id"`
 	Email      *string      `db:"email"`
-	Password   string       `db:"password"`
+Password   string       `db:"password"`
 	Username   *string      `db:"username"`
 	Created_at sql.NullTime `db:"created_at"`
 	Updated_at sql.NullTime `db:"updated_at"`

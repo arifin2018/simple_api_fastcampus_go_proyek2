@@ -18,6 +18,12 @@ ENV ARCH=amd64
 
 RUN go install golang.org/x/tools/cmd/goimports@latest && \
     go install golang.org/x/tools/gopls@latest
+    
+    # Install Go tools
+RUN go install honnef.co/go/tools/cmd/staticcheck@latest && \
+    go install github.com/cweill/gotests/...@v1.6.0 && \
+    go install github.com/josharian/impl@v1.4.0 && \
+    go install github.com/go-delve/delve/cmd/dlv@latest
 
 RUN curl -L https://github.com/golang-migrate/migrate/releases/download/${MIGRATE_VERSION}/migrate.${OS}-${ARCH}.tar.gz | tar xvz && \
     mv migrate /usr/local/bin/ && \
