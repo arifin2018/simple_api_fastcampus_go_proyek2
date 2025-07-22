@@ -1,4 +1,4 @@
-export MYSQL_URL = 'mysql://root:example@tcp(localhost:3306)/fastcampus'
+export MYSQL_URL = 'mysql://root:example@tcp(database:3306)/fastcampus'
 
 migrate-create:
 	@ migrate create -ext sql -dir scripts/migrations -seq $(name)
