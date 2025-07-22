@@ -14,7 +14,7 @@ func (h *Handler) CreateComment(c *gin.Context) {
 	postid, err := strconv.Atoi(postId)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
-			"error": err.Error() + " awd",
+			"error": err.Error(),
 		})
 		return
 	}
@@ -22,7 +22,7 @@ func (h *Handler) CreateComment(c *gin.Context) {
 	userid, err := strconv.Atoi(userId)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
-			"error": err.Error() + " awd1",
+			"error": err.Error(),
 		})
 		return
 	}

@@ -13,6 +13,6 @@ type UserActivityModel struct {
 	IsLiked   bool      `db:"is_liked"`
 	CreatedAt time.Time `db:"created_at"`
 	UpdatedAt time.Time `db:"updated_at"`
-	CreatedBy string    `db:"created_by"`
-	UpdatedBy string    `db:"updated_by"`
+	CreatedBy int       `db:"created_by"`
+	UpdatedBy int       `db:"updated_by"`
 }
