@@ -16,6 +16,9 @@ ENV MIGRATE_VERSION=v4.15.2
 ENV OS=linux
 ENV ARCH=amd64
 
+RUN go install golang.org/x/tools/cmd/goimports@latest && \
+    go install golang.org/x/tools/gopls@latest
+
 RUN curl -L https://github.com/golang-migrate/migrate/releases/download/${MIGRATE_VERSION}/migrate.${OS}-${ARCH}.tar.gz | tar xvz && \
     mv migrate /usr/local/bin/ && \
     chmod +x /usr/local/bin/migrate

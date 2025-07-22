@@ -2,7 +2,11 @@
   "name": "Go Dev Container",
   "dockerComposeFile": "../docker-compose.yml",
   "service": "app",
+<<<<<<< Updated upstream
   "workspaceFolder": "/",
+=======
+  "workspaceFolder": "/workspace",
+>>>>>>> Stashed changes
   "customizations": {
     "vscode": {
       "extensions": [
