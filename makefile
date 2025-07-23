@@ -8,3 +8,6 @@ migrate-up:
 
 migrate-down:
 	@ migrate -database ${MYSQL_URL} -path scripts/migrations down ${version}
+
+migrate-force:
+	@ migrate -path scripts/migrations -database ${MYSQL_URL} force ${version}

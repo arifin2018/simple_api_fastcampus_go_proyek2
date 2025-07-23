@@ -19,3 +19,22 @@ type PostModel struct {
 	Created_by  *string      `db:"created_by"`
 	Updated_by  *string      `db:"updated_by"`
 }
+
+type GetAllPostDataResponse struct {
+	Data       []Post     `json:"data"`
+	Pagination Pagination `json:"pagination"`
+}
+
+type Post struct {
+	ID          int64    `json:"id"`
+	UserId      int64    `json:"userId"`
+	Username    string   `json:"username"`
+	PostTitle   string   `json:"postTitle"`
+	PostContent string   `json:"postContent"`
+	PostHastags []string `json:"postHastags"`
+}
+
+type Pagination struct {
+	Limit  int `json:"limit"`
+	Offset int `json:"offset"`
+}

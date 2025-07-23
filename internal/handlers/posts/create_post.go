@@ -33,5 +33,4 @@ func (h *Handler) CreatePost(c *gin.Context) {
 		return
 	}
 	c.JSON(http.StatusOK, nil)
-	return
 }

@@ -41,5 +41,4 @@ func (h *Handler) CreateComment(c *gin.Context) {
 		return
 	}
 	c.JSON(http.StatusOK, request)
-	return
 }

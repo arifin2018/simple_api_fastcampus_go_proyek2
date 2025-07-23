@@ -9,7 +9,7 @@ import (
 
 func CreateToken(id int64, username, secretKey string) (string, error) {
 	claims := &jwt.MapClaims{
-		"ExpiresAt": jwt.NewNumericDate(time.Unix(1516239022, 0)),
+		"ExpiresAt": jwt.NewNumericDate(time.Now().Add(10 * time.Minute)),
 		"Username":  username,
 		"Id":        id,
 	}
@@ -29,7 +29,6 @@ func ValidationToken(tokenStr, secretKey string) (int64, string, error) {
 	token, err := jwt.ParseWithClaims(tokenStr, claims, func(t *jwt.Token) (any, error) {
 		return key, nil
 	})
-
 	if err != nil {
 		return 0, "", err
 	}
