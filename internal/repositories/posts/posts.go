@@ -32,7 +32,7 @@ func (r *repository) GetAllPost(ctx context.Context, limit, offset int) (posts.G
 			model    posts.PostModel
 			username string
 		)
-		if err := rows.Scan(&model.ID, &model.UserID, &username, &model.PostTitle, &model.PostContent, &model.PostHastags); err != nil {
+		if err := rows.Scan(&model.ID, &model.UserID, &username, &model.PostTitle, &model.PostContent, &model.PostHastags, &model.Created_at, &model.Updated_at, &model.Created_by, &model.Updated_by); err != nil {
 			return posts.GetAllPostDataResponse{}, err
 		}
 		data = append(data, posts.Post{
