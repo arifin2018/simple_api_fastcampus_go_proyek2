@@ -45,3 +45,15 @@ func (r *repository) UpdateUserActivity(ctx context.Context, model posts.UserAct
 	_, err := r.db.ExecContext(ctx, query, model.IsLiked, model.UpdatedBy, model.PostID, model.UserID)
 	return err
 }
+
+func (r *repository) CountLikeByPostId(ctx context.Context, postID int64) (int, error) {
+	query := `select count(id) from user_activities p where p.id = ? and p.is_liked = true`
+	var count int
+	if err := r.db.QueryRowContext(ctx, query, postID).Scan(&count); err != nil {
+		if err == sql.ErrNoRows {
+			return count, nil
+		}
+		return count, err
+	}
+	return count, nil
+}

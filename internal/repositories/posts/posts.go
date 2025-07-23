@@ -56,3 +56,27 @@ func (r *repository) GetAllPost(ctx context.Context, limit, offset int) (posts.G
 
 	return response, nil
 }
+
+func (r *repository) GetPostById(ctx context.Context, postId int64) (posts.Post, error) {
+	query := `SELECT p.id,p.user_id,u.username,p.post_title,p.post_content,p.post_hastags,p.created_at,p.updated_at,p.created_by,p.updated_by FROM posts p LEFT JOIN users u ON p.user_id = u.id WHERE p.id = ?`
+	var model posts.PostModel
+	var username string
+	var isLiked bool
+
+	err := r.db.QueryRowContext(ctx, query, postId).Scan(&model.ID, &model.UserID, &username, &model.PostTitle, &model.PostContent, &model.PostHastags, &model.Created_at, &model.Updated_at, &model.Created_by, &model.Updated_by)
+	if err != nil {
+		return posts.Post{}, err
+	}
+
+	response := posts.Post{
+		ID:          model.ID,
+		UserId:      model.UserID,
+		Username:    username,
+		PostTitle:   model.PostTitle,
+		PostContent: model.PostContent,
+		PostHastags: strings.Split(model.PostHastags, ","),
+		IsLiked:     isLiked,
+	}
+
+	return response, nil
+}
