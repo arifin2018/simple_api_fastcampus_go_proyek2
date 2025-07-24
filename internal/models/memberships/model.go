@@ -13,7 +13,16 @@ type LoginRequest struct {
 	Password string `json:"password"`
 }
 
+type RefreshTokenRequest struct {
+	Token string `json:"token"`
+}
+
 type LoginResponse struct {
+	AccessToken  string `json:"accessToken"`
+	RefreshToken string `json:"refreshToken"`
+}
+
+type RefreshResponse struct {
 	AccessToken string `json:"accessToken"`
 }
 type UserModel struct {

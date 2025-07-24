@@ -8,9 +8,9 @@ import (
 	"github.com/arifin2018/simple_api_fastcampus_go_proyek2/internal/models/memberships"
 )
 
-func (r *repository) GetUser(ctx context.Context, email, username string) (*memberships.UserModel, error) {
-	query := `select id,email, password,created_at,updated_at,created_by,updated_by,username from users where email = ? or username = ?`
-	row := r.db.QueryRowContext(ctx, query, email, username)
+func (r *repository) GetUser(ctx context.Context, email, username string, userID int) (*memberships.UserModel, error) {
+	query := `select id,email, password,created_at,updated_at,created_by,updated_by,username from users where email = ? or username = ? or id = ?`
+	row := r.db.QueryRowContext(ctx, query, email, username, userID)
 
 	var response memberships.UserModel
 	err := row.Scan(
@@ -23,8 +23,6 @@ func (r *repository) GetUser(ctx context.Context, email, username string) (*memb
 		&response.Updated_by,
 		&response.Username,
 	)
-	fmt.Println("err2")
-	fmt.Println(err)
 	if err != nil {
 		if err == sql.ErrNoRows {
 			return nil, nil

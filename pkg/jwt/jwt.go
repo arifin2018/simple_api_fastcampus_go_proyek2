@@ -39,3 +39,21 @@ func ValidationToken(tokenStr, secretKey string) (int64, string, error) {
 
 	return int64(claims["Id"].(float64)), claims["Username"].(string), nil
 }
+
+func ValidationTokenWithoutExpired(tokenStr, secretKey string) (int64, string, error) {
+	key := []byte(secretKey)
+	claims := jwt.MapClaims{}
+
+	token, err := jwt.ParseWithClaims(tokenStr, claims, func(t *jwt.Token) (any, error) {
+		return key, nil
+	}, jwt.WithoutClaimsValidation())
+	if err != nil {
+		return 0, "", err
+	}
+
+	if !token.Valid {
+		return 0, "", errors.New("invalid token")
+	}
+
+	return int64(claims["Id"].(float64)), claims["Username"].(string), nil
+}

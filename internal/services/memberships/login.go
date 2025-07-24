@@ -4,6 +4,7 @@ import (
 	"context"
 	"database/sql"
 	"errors"
+	"fmt"
 	"time"
 
 	"github.com/arifin2018/simple_api_fastcampus_go_proyek2/internal/models/memberships"
@@ -14,7 +15,7 @@ import (
 )
 
 func (s *service) Login(ctx context.Context, req memberships.LoginRequest) (string, string, error) {
-	user, err := s.membershipRepository.GetUser(ctx, req.Email, "")
+	user, err := s.membershipRepository.GetUser(ctx, req.Email, "", 0)
 	if err != nil {
 		log.Error().Err(err).Msg("failed to get user")
 		return "", "", err
@@ -48,10 +49,12 @@ func (s *service) Login(ctx context.Context, req memberships.LoginRequest) (stri
 		log.Error().Msg("failed to generate refresh token")
 		return token, "", errors.New("failed to generate refresh token")
 	}
+	fmt.Printf("refresh aja\n")
+	fmt.Printf("%+v\n", time.Now())
 	err = s.membershipRepository.InsertRefreshToken(ctx, memberships.RefreshTokenModel{
 		UserID:       user.ID,
 		RefreshToken: refresh_token,
-		ExpiredAt:    sql.NullTime{Time: time.Now().Add(10 * 24 * time.Hour), Valid: true}, // 10 days
+		ExpiredAt:    sql.NullTime{Time: time.Now().Add(10 * time.Minute), Valid: true}, // 10 menit
 		CreatedBy:    user.Username,
 		UpdatedBy:    user.Username,
 	})

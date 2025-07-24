@@ -7,27 +7,27 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func (h *Handler) Login(c *gin.Context) {
+func (h *Handler) RefreshToken(c *gin.Context) {
 	ctx := c.Request.Context()
 
-	var request memberships.LoginRequest
+	var request memberships.RefreshTokenRequest
 	if err := c.ShouldBindJSON(&request); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"error": err.Error(),
 		})
 		return
 	}
-
-	accessToken, refresh_token, err := h.membershipService.Login(ctx, request)
+	userId := c.GetInt("userId")
+	accessToken, err := h.membershipService.ValidateRefreshToken(ctx, userId, request)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"error": err.Error(),
 		})
 		return
 	}
-	response := memberships.LoginResponse{
-		AccessToken:  accessToken,
-		RefreshToken: refresh_token,
+
+	response := memberships.RefreshResponse{
+		AccessToken: accessToken,
 	}
 
 	c.JSON(http.StatusOK, response)
