@@ -1,1 +1,0 @@
-ALTER TABLE posts ADD CONSTRAINT fk_user_id_posts foreign KEY (user_id) references users(id);
