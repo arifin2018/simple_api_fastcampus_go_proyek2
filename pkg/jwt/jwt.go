@@ -33,7 +33,7 @@ func ValidationToken(tokenStr, secretKey string) (int64, string, error) {
 		return 0, "", err
 	}
 
-	if !token.Valid {
+	if !token.Valid || claims["ExpiresAt"].(float64) < float64(time.Now().Unix()) {
 		return 0, "", errors.New("invalid token")
 	}
 
