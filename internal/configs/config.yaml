@@ -1,0 +1,6 @@
+service:
+  port: ":1234"
+  secretJWt: "fastcampusJWT"
+
+database:
+  dataSourceName: "host=db user=user password=password dbname=mydatabase port=3000 sslmode=disable TimeZone=Asia/Jakarta"
